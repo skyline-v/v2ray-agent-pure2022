@@ -103,7 +103,7 @@ wget -P /root -N --no-check-certificate "https://raw.githubusercontent.com/reece
 
 # 版权
 
-- 八合一脚本原作者：[mack-a](https://github.com/mack-a)
+- 八合一脚本原作者已经跑路了
 - [Reece](https://github.com/reeceyng)
 - 以及本项目的所有贡献者
 
