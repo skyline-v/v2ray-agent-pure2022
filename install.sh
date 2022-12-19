@@ -1237,7 +1237,7 @@ acmeInstallSSL() {
 			if [[ "${addDNSTXTRecordStatus}" == "y" ]]; then
 				local txtAnswer=
 				txtAnswer=$(dig +nocmd "_acme-challenge.${dnsTLSDomain}" txt +noall +answer | awk -F "[\"]" '{print $2}')
-				if echo "${txtAnswer}" | grep -q "${txtValue}"; then
+				if echo "${txtAnswer}" | grep -qe "${txtValue}"; then
 					echoContent green " ---> TXT记录验证通过"
 					echoContent green " ---> 生成证书中"
 					sudo "$HOME/.acme.sh/acme.sh" --renew -d "*.${dnsTLSDomain}" -d "${dnsTLSDomain}" --yes-I-know-dns-manual-mode-enough-go-ahead-please --ecc --server "${sslType}" ${installSSLIPv6} 2>&1 | tee -a /etc/v2ray-agent/tls/acme.log >/dev/null
