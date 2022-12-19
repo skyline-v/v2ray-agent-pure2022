@@ -1088,6 +1088,7 @@ checkIP() {
 	local checkDomain=${domain}
 	if [[ -n "${customPort}" ]]; then
 		checkDomain="http://${domain}:${customPort}"
+		echo "${checkDomain}"
 	fi
 	localIP=$(curl -s -m 2 "${checkDomain}/ip")
 
