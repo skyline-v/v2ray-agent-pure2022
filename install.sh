@@ -277,7 +277,7 @@ readInstallType() {
 			fi
 		fi
     fi
-	
+
 	if [[ -d "/etc/v2ray-agent/xray" && -f "/etc/v2ray-agent/xray/xray" ]]; then
 		# 这里检测xray-core
 		if [[ -d "/etc/v2ray-agent/xray/conf" ]] && [[ -f "/etc/v2ray-agent/xray/conf/02_VLESS_TCP_inbounds.json" || -f "/etc/v2ray-agent/xray/conf/02_trojan_TCP_inbounds.json" ]]; then
@@ -2724,7 +2724,7 @@ initXrayConfig() {
 			uuid=$(/etc/v2ray-agent/xray/xray uuid)
 		fi
 	fi
-		
+
 	echoContent yellow "\n ${uuid}"
 
 	movePreviousConfig
@@ -3194,7 +3194,7 @@ vless://${id}@${currentHost}:${currentDefaultPort}?security=tls&encryption=none&
 EOF
 			echoContent yellow " ---> 二维码 VLESS(VLESS+TCP+TLS)"
 			echoContent green "    https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=vless%3a%2f%2f${id}%40${currentHost}%3a${currentDefaultPort}%3fsecurity%3dtls%26encryption%3dnone%26host%3d${currentHost}%26headerType%3dnone%26type%3dtcp%23${email}\n"
-		
+
 		elif [[ "${coreInstallType}" == 3 ]] && echo "${currentInstallProtocolType}" | grep -q 0; then
 			echoContent yellow " ---> 通用格式(VLESS+TCP+TLS/xtls-rprx-vision)"
 			echoContent green "    vless://${id}@${currentHost}:${currentDefaultPort}?encryption=none&security=tls&type=tcp&host=${currentHost}&headerType=none&sni=${currentHost}&flow=xtls-rprx-vision#${email/direct/splice}\n"
@@ -5120,6 +5120,7 @@ customV2RayInstall() {
 		totalProgress=17
 		installTools 1
 		# 申请tls
+		handleV2Ray stop
 		initTLSNginxConfig 2
 		installTLS 3
 		handleNginx stop
@@ -5169,8 +5170,8 @@ customXrayInstall() {
 		totalProgress=17
 		installTools 1
 		# 申请tls
-		initTLSNginxConfig 2
 		handleXray stop
+		initTLSNginxConfig 2
 		handleNginx start
 		checkIP
 
@@ -5250,10 +5251,10 @@ v2rayCoreInstall() {
 	selectCustomInstallType=
 	totalProgress=13
 	installTools 2
+	handleV2Ray stop
 	# 申请tls
 	initTLSNginxConfig 3
 
-	handleV2Ray stop
 	handleNginx start
 	checkIP
 
@@ -5285,10 +5286,10 @@ xrayCoreInstall() {
 	selectCustomInstallType=
 	totalProgress=13
 	installTools 2
+	handleXray stop
 	# 申请tls
 	initTLSNginxConfig 3
 
-	handleXray stop
 	handleNginx start
 	checkIP
 
