@@ -5117,6 +5117,7 @@ customV2RayInstall() {
 	fi
 	if [[ "${selectCustomInstallType}" =~ ^[0-5]+$ ]]; then
 		cleanUp xrayClean
+		cleanUp v2rayClean
 		totalProgress=17
 		installTools 1
 		# 申请tls
@@ -5186,7 +5187,7 @@ customXrayInstall() {
 		updateRedirectNginxConf
 		handleNginx start
 
-		# 安装V2Ray
+		# 安装XRay
 		installXray 8
 		installXrayService 9
 		initXrayConfig custom 10
